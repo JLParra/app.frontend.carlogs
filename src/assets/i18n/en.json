@@ -1,0 +1,47 @@
+{
+  "MENUITEMS": {
+    "MENU": {
+      "TEXT": "MENU"
+    },
+    "APPS": {
+      "TEXT": "Apps",
+      "LIST": {
+        "VEHICLES": "Vehicles",
+        "VEHICLE": "Vehicle",
+        "DRIVER": "Driver",
+        "USER": "Users",
+        "COMPANY": "Company"
+      }
+    },
+    "GUARDS": {
+      "TEXT": "Guards",
+      "LIST": {
+        "GUARD": "Guard",
+        "ABONO": "Abono",
+        "NEWS": "News",
+        "DISCOUNTS": "Discount",
+        "REVIEWS": "Review"
+      }
+    },
+    "PARAMS": {
+      "TEXT": "Params",
+      "LIST": {
+        "TYPE": "Type",
+        "VEHICLE": "Vehicle",
+        "MAINTENANCE": "Maintenance",
+        "HOLIDAYS": "Holidays",
+        "MOUNTGUARD": "Mount Guard"
+      }
+    }
+  },
+  "PROFILE": {
+    "PROFILE":"Profile",
+    "MESSAGES":"Mensajes",
+    "TASKBOARD":"Taskboard",
+    "HELP":"Help",
+    "BALANCE":"Balance",
+    "SETTINGS":"Settings",
+    "LOCKSCREEN":"Lock screen",
+    "LOGOUT":"Logout"
+  }
+}

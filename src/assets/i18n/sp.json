@@ -1,0 +1,48 @@
+{
+  "MENUITEMS": {
+    "MENU": {
+      "TEXT": "MENU"
+    },
+    "APPS": {
+      "TEXT": "Apps",
+      "LIST": {
+        "VEHICLES": "Vehículos",
+        "VEHICLE": "Vehículo",
+        "DRIVER": "Chofer",
+        "USER": "Usuarios",
+        "COMPANY": "Empresas"
+      }
+    },
+    "GUARDS": {
+      "TEXT": "Guardias",
+      "LIST": {
+        "GUARD": "Guardia",
+        "ABONO": "Abono",
+        "NEWS": "Novedades",
+        "DISCOUNTS": "Descuentos",
+        "REVIEWS": "Revisiones"
+      }
+    },
+    "PARAMS": {
+      "TEXT": "Parámetros",
+      "LIST": {
+        "TYPE": "Tipo",
+        "VEHICLE": "Vehículo",
+        "MAINTENANCE": "Mantenimiento",
+        "HOLIDAYS": "Feriados",
+        "MOUNTGUARD": "Monto Guardia"
+      }
+    }
+  },
+  "PROFILE": {
+    "PROFILE":"Perfl",
+    "MESSAGES":"Mensaje",
+    "TASKBOARD":"Tarea",
+    "HELP":"Ayuda",
+    "BALANCE":"Balance",
+    "SETTINGS":"Configuraciones",
+    "LOCKSCREEN":"Bloqueo pantalla",
+    "LOGOUT":"Cerrar sesión"
+  }
+  
+}
