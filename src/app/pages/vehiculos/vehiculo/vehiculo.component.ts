@@ -11,9 +11,11 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 import am5geodata_worldLow from "@amcharts/amcharts5-geodata/worldLow";
 import { shuffleArray } from 'src/app/shared/commonFunction';
 import { Store } from '@ngrx/store';
-import { fetchorderData,  fetchsalesData } from 'src/app/store/Ecommerce/ecommerce.actions';
+import { fetchorderData, fetchsalesData } from 'src/app/store/Ecommerce/ecommerce.actions';
 import { selectData, selectorderata, selectproductData } from 'src/app/store/Ecommerce/ecommerce-selector';
 import { products } from './data';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { fetchsupporticketsData } from 'src/app/store/Tickets/ticket.actions';
 
 
 @Component({
@@ -30,12 +32,15 @@ export class VehiculoComponent {
   salesList: any;
   orderList: any;
   produtlist: any;
+  tickets: any;
+  alltickets: any;
 
   @ViewChild('productModal', { static: false }) productModal?: ModalDirective;
   productdetail: any;
   sortValue: any = 'Order Date';
+  supportList: any;
 
-  constructor(public store: Store) { }
+  constructor(public store: Store, private formBuilder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
     this._marketverviewChart('["--tb-primary", "--tb-secondary"]');
@@ -44,6 +49,12 @@ export class VehiculoComponent {
     this._mini7Chart('["--tb-info"]');
 
     this.produtlist = products
+
+    this.store.dispatch(fetchsupporticketsData());
+    this.store.select(selectData).subscribe((data) => {
+      this.supportList = data;
+    });
+
 
     // Recent Sales
     this.store.dispatch(fetchsalesData());
@@ -105,9 +116,109 @@ export class VehiculoComponent {
       pointSeries.pushDataItem({ latitude: 56.1304, longitude: -106.3468 });
       pointSeries.pushDataItem({ latitude: 71.7069, longitude: -42.6043 });
     }, 1000);
-
-
+    /**
+         * Form Validation
+         */
+    this.listForm = this.formBuilder.group({
+      id: [''],
+      img: [''],
+      name: [''],
+      category: ['', [Validators.required]],
+      instructor: ['', [Validators.required]],
+      lessons: ['', [Validators.required]],
+      students: ['', [Validators.required]],
+      duration: ['', [Validators.required]],
+      fees: ['', [Validators.required]],
+      status: ['', [Validators.required]]
+    });
   }
+  uploadedFiles: any[] = [];
+  courses: any;
+  @ViewChild('addCourse', { static: false }) addCourse?: ModalDirective;
+  listForm!: UntypedFormGroup;
+
+  // Edit Data
+  editList(id: any) {
+    this.uploadedFiles = [];
+    this.addCourse?.show()
+    var modaltitle = document.querySelector('.modal-title') as HTMLAreaElement
+    modaltitle.innerHTML = 'Edit Product'
+    var modalbtn = document.getElementById('add-btn') as HTMLAreaElement
+    modalbtn.innerHTML = 'Update'
+    var editData = this.courses[id]
+    this.uploadedFiles.push({ 'dataURL': editData.img, 'name': editData.imgalt, 'size': 1024, });
+    this.listForm.patchValue(this.courses[id]);
+  }
+  //  Filter Offcanvas Set
+  openEnd() {
+    document.getElementById('courseFilters')?.classList.add('show')
+    document.querySelector('.backdrop3')?.classList.add('show')
+  }
+  checkedValGet: any[] = [];
+  // The master checkbox will check/ uncheck all items
+  checkUncheckAll(ev: any) {
+    this.courses.forEach((x: { state: any; }) => x.state = ev.target.checked)
+    var checkedVal: any[] = [];
+    var result
+    for (var i = 0; i < this.courses.length; i++) {
+      if (this.courses[i].state == true) {
+        result = this.courses[i].id;
+        checkedVal.push(result);
+      }
+    }
+    this.checkedValGet = checkedVal
+    checkedVal.length > 0 ? document.getElementById("remove-actions")?.classList.remove('d-none') : document.getElementById("remove-actions")?.classList.add('d-none');
+  }
+  // Select Checkbox value Get
+  onCheckboxChange(e: any) {
+    var checkedVal: any[] = [];
+    var result
+    for (var i = 0; i < this.courses.length; i++) {
+      if (this.courses[i].state == true) {
+        result = this.courses[i].id;
+        checkedVal.push(result);
+      }
+    }
+    this.checkedValGet = checkedVal
+    checkedVal.length > 0 ? document.getElementById("remove-actions")?.classList.remove('d-none') : document.getElementById("remove-actions")?.classList.add('d-none');
+  }
+
+
+
+  deleteID: any;
+  @ViewChild('deleteRecordModal', { static: false }) deleteRecordModal?: ModalDirective;
+  // Delete Product
+  removeItem(id: any) {
+    this.deleteID = id
+    this.deleteRecordModal?.show()
+  }
+  term: any;
+  courseList: any;
+  masterSelected!: boolean;
+
+  filterdata() {
+
+    if (this.term) {
+      this.courses = this.courseList.filter((el: any) => el.name.toLowerCase().includes(this.term.toLowerCase()))
+    } else {
+      this.courses = this.courseList.slice(0, 10)
+    }
+    // noResultElement
+    this.updateNoResultDisplay();
+  }
+  // no result 
+  updateNoResultDisplay() {
+    const noResultElement = document.querySelector('.noresult') as HTMLElement;
+    const paginationElement = document.getElementById('pagination-element') as HTMLElement
+    if (this.term && this.courses.length === 0) {
+      noResultElement.style.display = 'block';
+      paginationElement.classList.add('d-none')
+    } else {
+      noResultElement.style.display = 'none';
+      paginationElement.classList.remove('d-none')
+    }
+  }
+
 
   // Chart Colors Set
   private getChartColorsArray(colors: any) {

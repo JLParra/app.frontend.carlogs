@@ -1,0 +1,192 @@
+
+<div class="row">
+    @for (data of supportList; track $index) {
+    <div class="col-lg-3">
+        <div class="card file-manager-widgets" style="background-size: 95px;background-position:right bottom;">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="flex-grow-1">
+                        <div class="avatar-sm">
+                            <div class="avatar-title bg-{{data.imgBg}}-subtle text-{{data.imgBg}} rounded fs-xl">
+                                <i class="{{data.img}}"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <p><span class="text-{{data.iconColor}} me-1"><i class="{{data.icon}} fs-sm align-middle"></i>
+                                +{{data.num}} %</span> than last week</p>
+                    </div>
+                </div>
+                <h4 class="fw-semibold mb-3"><span class="counter-value" ></span>{{data.label}}
+                </h4>
+                <p class="fw-medium text-muted mb-0">{{data.title}}</p>
+            </div>
+        </div>
+    </div><!--end col-->
+}
+</div><!--end row-->
+
+
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card" id="contactList">
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">Vehículos registrados <span class="badge bg-danger ms-1 align-baseline">2</span></h4>
+                <!-- <h6 class="card-title mb-0"></h6> -->
+                <div class="flex-shrink-0">
+                    <div dropdown class="dropdown card-header-dropdown sortble-dropdown">
+                        <a dropdownToggle class="text-reset dropdown-btn" href="javascript:void(0);">
+                            <a href="javascript:void(0);" class="btn btn-secondary"><i class="bi bi-plus-circle align-baseline me-1"></i> Agregar Vehículo</a>
+                        </a>
+                        <div *bsDropdownMenu class="dropdown-menu dropdown-menu-end">
+                            <button class="dropdown-item sort" (click)="sortBy('date','Order Date')">Order Date</button>
+                            <button class="dropdown-item sort" (click)="sortBy('orderId','Order ID')">Order ID</button>
+                            <button class="dropdown-item sort" (click)="sortBy('amount','Amount')">Amount</button>
+                            <button class="dropdown-item sort" (click)="sortBy('status','Status')">Status</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" style="max-height: 405px;">
+                <div class="table-responsive" >
+                    <table class="table table-borderless table-centered align-middle table-nowrap mb-0">
+                        <thead class="text-muted table-light">
+                            <tr>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('date')">Marca</th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('orderId')">Modelo</th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('shop')">Año</th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('customer')">Nº Placa</th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('product')">Color</th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('amount')">Tipo de vehículo</th> 
+                                <!-- Tipo de vehículo (automóvil, motocicleta, camión, etc.). -->
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('rating')">KM Actual</th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('status')">Estado</th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('status')">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            @for (data of orderList; track $index) {
+                            <tr>
+                                <td class="order_date">
+                                    {{data.date}}
+                                </td>
+                                <td class="order_id">
+                                    <a routerLink="/ecommerce/order-overview" class="fw-medium link-primary">{{data.orderId}}</a>
+                                </td>
+                                <td class="shop">
+                                    <img src="{{data.shop}}" alt="" class="avatar-xxs rounded-circle">
+                                </td>
+                                <td class="customer">
+                                    {{data.customer}}
+                                </td>
+                                <td class="products">{{data.product}}</td>
+                                <td class="amount">
+                                    <span class="fw-medium">{{data.amount}}</span>
+                                </td>
+                                
+                                <td class="rating">
+                                    @if (data.rating) {
+                                    <h5 class="fs-md fw-medium mb-0">
+                                        <i class="ph-star align-baseline text-warning"></i>
+                                        {{data.rating}}
+                                    </h5>
+                                    }@else {
+                                    <h5 class="fs-md fw-medium mb-0">-</h5>
+                                    }
+                                </td>
+                                <td class="status">
+                                    <span class="badge" [ngClass]="{'bg-secondary-subtle text-secondary': data.status === 'New',
+                                    'bg-warning-subtle text-warning': data.status === 'Pending',
+                                    'bg-danger-subtle text-danger': data.status === 'Out of Delivered',
+                                    'bg-primary-subtle text-primary': data.status === 'Shipping',
+                                    'bg-success-subtle text-success': data.status === 'Delivered'}">{{data.status}}</span>
+                                </td>
+                                <td>
+                                    <ul class="d-flex gap-2 list-unstyled mb-0">
+                                        <li>
+                                            <a routerLink="/tickets/overview" class="btn btn-subtle-primary btn-icon btn-sm "><i class="ph-eye"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" (click)="editList($index)" class="btn btn-subtle-secondary btn-icon btn-sm edit-item-btn"><i class="ph-pencil"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" (click)="removeItem(data.id)" class="btn btn-subtle-danger btn-icon btn-sm remove-item-btn"><i class="ph-trash"></i></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr><!-- end tr -->
+                        }
+                        </tbody><!-- end tbody -->
+                    </table><!-- end table -->
+                    <div class="noresult" style="display: none">
+                        <div class="text-center">
+                            <!-- <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#405189,secondary:#0ab39c" style="width:75px;height:75px"></lord-icon> -->
+                            <h5 class="mt-2">Sorry! No Result Found</h5>
+                            <p class="text-muted mb-0">We've searched more than 150+ transactions We did not find any
+                                transactions for you search.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--end col-->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header d-flex align-items-center">
+                <h4 class="card-title mb-0 flex-grow-1">Choferes registrados</h4>
+                <div class="flex-shrink-0">
+                    <div dropdown class="dropdown card-header-dropdown">
+                        <a href="javascript:void(0);" class="btn btn-secondary"><i class="bi bi-plus-circle align-baseline me-1"></i> Agregar chofer</a>
+                        <!-- <div *bsDropdownMenu class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="javascript:void(0);">Today</a>
+                            <a class="dropdown-item" href="javascript:void(0);">Yesterday</a>
+                            <a class="dropdown-item" href="javascript:void(0);">Last 7 Days</a>
+                            <a class="dropdown-item" href="javascript:void(0);">Last 30 Days</a>
+                            <a class="dropdown-item" href="javascript:void(0);">This Month</a>
+                            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="card-body px-0">
+                <ngx-simplebar class="px-3" style="max-height: 405px;">
+                    <div class="vstack gap-2">
+                        @for (data of produtlist; track $index) {
+                        <div class="p-2 border border-dashed">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="avatar-sm flex-shrink-0">
+                                    <div class="avatar-title bg-light rounded">
+                                        <img src="{{data.img}}" alt="" class="avatar-xs">
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <a href="javascript:void(0);">
+                                        <h6 class="fs-md mb-2">{{data.title}}</h6>
+                                    </a>
+                                    <ul class="hstack list-unstyled gap-2 mb-0 fs-sm fw-medium text-muted">
+                                        <li>
+                                            <i class="ph-star align-baseline"></i> {{data.star}}
+                                        </li>
+                                        <li>
+                                            <i class="ph-shopping-cart align-baseline"></i> {{data.cart}}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="text-end">
+                                    <h5 class="fs-md text-primary mb-0">{{data.price}}</h5>
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <button class="btn btn-secondary btn-icon btn-sm" (click)="showproductModal($index)"><i class="ph-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    </div>
+                </ngx-simplebar>
+            </div>
+        </div>
+    </div><!--end col-->
+</div><!--end row-->
+
+
