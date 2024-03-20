@@ -6,6 +6,7 @@ import { VehiculoComponent } from './vehiculo/vehiculo.component';
 import { ChoferComponent } from './chofer/chofer.component';
 import { SimplebarAngularModule } from 'simplebar-angular';
 import { FormsModule } from '@angular/forms';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
+    PaginationModule,
     VehiculosRoutingModule,
     SimplebarAngularModule,
     
