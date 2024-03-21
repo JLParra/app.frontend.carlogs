@@ -1,25 +1,17 @@
-import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { circle, latLng, tileLayer } from 'leaflet';
-import { Observable } from 'rxjs';
-import { DecimalPipe } from '@angular/common';
+import { Component, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
-// amCharts imports
-import * as am5 from '@amcharts/amcharts5';
-import * as am5map from "@amcharts/amcharts5/map";
-import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
-import am5geodata_worldLow from "@amcharts/amcharts5-geodata/worldLow";
-import { shuffleArray } from 'src/app/shared/commonFunction';
+
 import { Store } from '@ngrx/store';
-import { fetchorderData, fetchsalesData } from 'src/app/store/Ecommerce/ecommerce.actions';
-import { selectData, selectorderata, selectproductData } from 'src/app/store/Ecommerce/ecommerce-selector';
-import { products } from './data';
+
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { vehiculosRegistrados } from './vehiculosRegistrados';
-import { supportList } from './supportList';
+import { vehiculosWidgets } from './vehiculosWidgets';
 import { choferesList } from './choferesList';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { clone, cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash';
+import { tiposVehiculos } from './tiposVehiculos';
+import { tiposMantenimientos } from './tiposMantenimientos';
 
 
 @Component({
@@ -37,13 +29,16 @@ export class VehiculoComponent {
   vehiculosRegistradosList: any;
   vehiculosRegistrados: any;
   choferesList: any;
+  tiposVehiculosList: any;
+  tiposMantenimientosList: any;
   tickets: any;
   alltickets: any;
+  totalChoferes:number=3000;
 
   @ViewChild('productModal', { static: false }) productModal?: ModalDirective;
   productdetail: any;
   sortValue: any = 'Order Date';
-  supportList: any;
+  vehiculosWidgets: any;
 
   constructor(public store: Store, private formBuilder: UntypedFormBuilder) { }
 
@@ -53,8 +48,10 @@ export class VehiculoComponent {
     this.vehiculosRegistrados = cloneDeep(this.vehiculosRegistradosList.slice(0,10));
     document.getElementById('elmLoader')?.classList.add('d-none')
 
-    this.supportList = supportList;
-    this.choferesList = choferesList;
+    this.vehiculosWidgets = vehiculosWidgets;
+   this.choferesList = choferesList;
+   this.tiposVehiculosList = tiposVehiculos;
+   this.tiposMantenimientosList = tiposMantenimientos;
 
     this.listForm = this.formBuilder.group({
       id: [''],

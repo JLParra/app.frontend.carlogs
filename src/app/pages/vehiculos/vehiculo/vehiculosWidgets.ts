@@ -1,4 +1,4 @@
-export const supportList= [
+export const vehiculosWidgets= [
  {
    img:"Chevrolet",
    imgBg:"Aveo Family",

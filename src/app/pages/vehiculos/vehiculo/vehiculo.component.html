@@ -1,5 +1,5 @@
 <div class="row">
-    @for (data of supportList; track $index) {
+    @for (data of vehiculosWidgets; track $index) {
     <div class="col-xxl col-sm-6">
         <div class="card overflow-hidden">
             <div class="card-body">
@@ -158,46 +158,28 @@
     </div><!--end col-->
     <div class="col-lg-4">
         <div class="card">
-            <!-- <div class="card-header d-flex align-items-center">
-                <h4 class="card-title mb-0 flex-grow-1">Choferes registrados</h4>
-                <div class="flex-shrink-0">
-                    <div dropdown class="dropdown card-header-dropdown">
-                        <a href="javascript:void(0);" class="btn btn-secondary"><i
-                                class="bi bi-plus-circle align-baseline me-1"></i> Agregar chofer</a>
-                                <div>
-                                    <button type="button" class="btn btn-info me-1" (click)="openEnd()"><i class="bi bi-funnel align-baseline me-1"></i> Filter</button>
-                                    <a routerLink="/learning/grid" class="btn btn-subtle-primary btn-icon me-1"><i class="bi bi-grid"></i></a>
-                                    <a routerLink="/learning/list" class="btn btn-subtle-primary active btn-icon"><i class="bi bi-list-task"></i></a>
-                                </div>
-
-
-                    </div>
-                </div>
-            </div> -->
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-lg-auto me-auto">
-                        <h6 class="card-title mb-0">Choferes registrados <span class="badge bg-primary ms-1 align-baseline">1452</span></h6>
+                        <h6 class="card-title mb-0">Choferes registrados <span
+                                class="badge bg-primary ms-1 align-baseline">2</span></h6>
                     </div><!--end col-->
-                    <!-- <div class="col-lg-2">
-                        <div class="search-box">
-                            <input type="text" class="form-control search" placeholder="Search for courses, price or something..." [(ngModel)]="term" (keyup)="filterdata()">
-                            <i class="ri-search-line search-icon"></i>
-                        </div>
-                    </div> -->
+
                     <div class="col-lg-auto">
                         <div class="hstack flex-wrap gap-2">
-                            <button class="btn btn-subtle-danger d-none" id="remove-actions" ><i class="ri-delete-bin-2-line"></i></button>
-                            <a href="javascript:void(0);"  class="btn btn-secondary"><i class="bi bi-plus-circle align-baseline me-1"></i> Agregar Chofer</a>
-                            <a href="javascript:void(0);"  class="btn btn-subtle-primary"><i class="ph ph-eye-bold align-baseline"></i> Todos</a>
-                            <!-- <a routerLink="/learning/list" class="btn btn-subtle-primary active btn-icon"><i class="ph ph-arrow-square-in-thin"></i>Todos</a> -->
-                            
+                            <button class="btn btn-subtle-danger d-none" id="remove-actions"><i
+                                    class="ri-delete-bin-2-line"></i></button>
+                            <a href="javascript:void(0);" class="btn btn-secondary"><i
+                                    class="bi bi-plus-circle align-baseline me-1"></i> Agregar</a>
+                            <!-- <a href="javascript:void(0);"  class="btn btn-subtle-primary"><i class="ph ph-eye-bold align-baseline"></i> Todos</a> -->
+                            <a routerLink="/learning/category" class="icon-link icon-link-hover">Ver más <i
+                                    class="bi bi-arrow-right"></i></a>
                         </div>
                     </div><!--end col-->
                 </div>
             </div>
             <div class="card-body px-0">
-                <ngx-simplebar class="px-3" style="max-height: 405px;">
+                <ngx-simplebar class="px-3" style="max-height: 252px;">
                     <div class="vstack gap-2">
                         <!-- @for (data of produtlist; track $index) { -->
                         @for (data of choferesList; track $index) {
@@ -217,9 +199,7 @@
                                             <i class="ph-police-car-light align-baseline"
                                                 style="font-size: 1.1rem;"></i> {{data.carro}}
                                         </li>
-                                        <li>
-                                            <i class="ph-shopping-cart align-baseline"></i> {{data.cart}}
-                                        </li>
+
                                     </ul>
                                 </div>
                                 <div class="text-end">
@@ -236,20 +216,73 @@
                 </ngx-simplebar>
             </div>
         </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-lg-auto me-auto">
+                        <h6 class="card-title mb-0">Tipos Vehículos <span
+                                class="badge bg-primary ms-1 align-baseline">2</span></h6>
+                    </div><!--end col-->
+
+                    <div class="col-lg-auto">
+                        <div class="hstack flex-wrap gap-2">
+                            <button class="btn btn-subtle-danger d-none" id="remove-actions"><i
+                                    class="ri-delete-bin-2-line"></i></button>
+                            <a href="javascript:void(0);" class="btn btn-secondary"><i
+                                    class="bi bi-plus-circle align-baseline me-1"></i> Agregar</a>
+                            <a routerLink="/learning/category" class="icon-link icon-link-hover">Ver más <i
+                                    class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div><!--end col-->
+                </div>
+            </div>
+            <div class="card-body px-0">
+                <ngx-simplebar class="px-3" style="max-height: 252px;">
+                    <div class="vstack gap-2">
+                        <!-- @for (data of produtlist; track $index) { -->
+                        @for (data of tiposVehiculosList; track $index) {
+                        <div class="p-2 border border-dashed">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="avatar-sm flex-shrink-0">
+                                    <div class="avatar-title bg-light rounded">
+                                        <img src="{{data.img}}" alt="" class="avatar-xs">
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <a href="javascript:void(0);">
+                                        <h6 class="fs-md mb-2">{{data.nombres}}</h6>
+                                    </a>
+
+                                </div>
+                                <div class="text-end">
+                                    <h5 class="fs-md text-primary mb-0">{{ data.deuda | currency:'$' }}</h5>
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <button class="btn btn-secondary btn-icon btn-sm"><i
+                                            class="ph-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </ngx-simplebar>
+            </div>
+        </div>
+
     </div><!--end col-->
 </div><!--end row-->
 <!-- Seccion de Mantenimientos -->
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-8">
         <div class="card" id="regMantList">
 
             <div class="card-body">
                 <div class="row align-items-center g-2">
-                    <div class="col-lg-3 me-auto">
+                    <div class="col-lg-4 me-auto">
                         <h6 class="card-title mb-0">Registros Mantenimientos <span
                                 class="badge bg-primary ms-1 align-baseline">1452</span></h6>
                     </div><!--end col-->
-                    <div class="col-lg-2">
+                    <div class="col-lg-4">
                         <div class="search-box">
                             <input type="text" class="form-control search"
                                 placeholder="Search for courses, price or something..." [(ngModel)]="term"
@@ -261,7 +294,7 @@
                         <div class="hstack flex-wrap gap-2">
                             <!-- <button class="btn btn-subtle-danger d-none" id="remove-actions" (click)="deleteRecordModal.show()"><i class="ri-delete-bin-2-line"></i></button> -->
                             <a href="javascript:void(0);" class="btn btn-secondary"><i
-                                    class="bi bi-plus-circle align-baseline me-1"></i> Add Course</a>
+                                    class="bi bi-plus-circle align-baseline me-1"></i> Agregar Mantenimiento</a>
 
                         </div>
                     </div><!--end col-->
@@ -370,6 +403,48 @@
                 </div><!--end row-->
             </div>
 
+        </div>
+    </div><!--end col-->
+    <div class="col-lg-4">
+
+        <div class="card card-height-100">
+            <div class="card-header d-flex">
+                <h5 class="card-title flex-grow-1 mb-0">Tipo Mantenimiento</h5>
+                <div class="flex-shrink-0">
+                    <a href="javascript:void(0);" class="btn btn-subtle-info btn-sm">View More <i
+                            class="ph-caret-right align-middle"></i></a>
+                </div>
+            </div>
+            <div class="card-body px-0">
+                <ngx-simplebar class="px-3" style="max-height: 600px;">
+                    <div class="acitivity-timeline acitivity-main">
+                        @for (data of tiposMantenimientosList; track $index) {
+                        <div class="acitivity-item d-flex">
+                            <div class="avatar-xs acitivity-avatar">
+                                <div class="avatar-title rounded-circle bg-warning-subtle text-warning">
+                                    <i class="ri-bookmark-fill"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-1 lh-base">{{data.nombre}}</h6>
+                                <small class="mb-1 lh-base mb-2">{{data.objetivo}}</small><br>
+                                @for (item of data.items; track $index) {
+                                    <div class="vstack gap-2">
+                                        <div class="border py-2 px-3 w-100 rounded d-flex align-items-center mb-1">
+                                            <h6 class="text-muted ">{{item.nombre}} | revisar cada : {{item.kmRevision}} </h6>
+                                        </div>
+                                    </div>
+                               
+
+                                }
+
+                            </div>
+                        </div>
+                        }
+
+                    </div>
+                </ngx-simplebar>
+            </div>
         </div>
     </div><!--end col-->
 
