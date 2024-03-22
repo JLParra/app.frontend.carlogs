@@ -1,132 +1,126 @@
 export const registroMantenimientos = [
   {
-    img: "https://source.unsplash.com/random/automoviles",
     codigo: 1,
-    fechaRegistro:"10-20-2024",
+    fechaRegistro: "10-20-2024",
     vehiculo: {
-      id:1,
-      marca:"Chevrolet",
-      modelo:"Aveo",
-
-      kmActual: 158000,
-      placa:"GCA-3951",
+      id: 1,
+      marca: "Chevrolet",
+      modelo: "Aveo",
+      placa: "GCA-3951",
+      kmActual: 180000,
       tipoVehiculo: {
-          img: "https://source.unsplash.com/random/tricimoto",
-          codigo: 1,
-          nombre: "Automóvil",
-          estado:"A",
-      }
+        codigo: 1,
+        nombre: "Automóvil",
+        estado: "A",
+      },
     },
-    tipoMantenimiento:  {
-      icon: "avatar-title rounded-circle bg-warning-subtle text-warning",
-      codigo: 1,
-      objetivo:"Prevenir fallas y mantener los vehiculos en condiciones óptimas de funcionamiento.",
-      nombre: "Preventivo",
-      estado:"A",
-      items: [
-        {
-          id: 1,
-          nombre:"Cambio de aceite",
-          kmRevision: 10000
-        },
-        {
-          id: 2,
-          nombre:"Revision del Aceite del motor",
-          kmRevision: 10000
-        },
-        {
-          id: 3,
-          nombre:"Liquido de freno.",
-          kmRevision: 10000
-        },
-        {
-          id: 4,
-          nombre:"Liquido refrigerante.",
-          kmRevision: 10000
-        },
-        {
-          id: 4,
-          nombre:"Aceite de caja de cambio.",
-          kmRevision: 10000
-        },
-      ]
-    },
+    
     tipoMantenimientoDetalle: {
       id: 1,
-      nombre:"Cambio de aceite",
-      kmRevision: 10000
+      nombre: "Cambio de aceite",
+      marca: "GUARDOL SUPER 66 20W50 GL",
+      caracteristicas: "",
+      validarPor: "KM", //KM o DIAS
+      validarAutonomia: true,
+      autonomia: 5000,
+      cantidad: "Galon",
+      tipoMantenimiento: {
+        codigo: 1,
+        nombre: "Preventivo",
+        objetivo: "Prevenir fallas y mantener los vehiculos en condiciones óptimas de funcionamiento.",
+      },
+      tiposVehiculo: {
+        codigo: 1,
+        nombres: "Automóvil",
+      }
     },
-    Autonomia:5000, // Cambio.
-    siguienteCambio: 0,
-    estado:"A"
-
+    KMActualMantenimiento:157000,
+    ProximoCambioKM:162000,
+    KmFaltante: 18000,
+    estado: "A"
   },
   {
-    img: "https://source.unsplash.com/random/automoviles",
     codigo: 2,
-    fechaRegistro:"10-20-2024",
+    fechaRegistro: "10-20-2024",
     vehiculo: {
-      id:1,
-      marca:"Chevrolet",
-      modelo:"Aveo",
-
-      kmActual: 158000,
-      placa:"GCA-3951",
+      id: 1,
+      marca: "Chevrolet",
+      modelo: "Aveo",
+      placa: "GCA-3951",
+      kmActual: 180000,
       tipoVehiculo: {
-          img: "https://source.unsplash.com/random/tricimoto",
-          codigo: 1,
-          nombre: "Automóvil",
-          estado:"A",
+        codigo: 1,
+        nombre: "Automóvil",
+        estado: "A",
+      },
+    },
+    
+    tipoMantenimientoDetalle:  {
+      id: 6,
+      nombre: "Filtro del carburador",
+      marca:"ACDELCO",
+      caracteristicas:"",
+      validarPor:"KM", //KM o DIAS
+      validarAutonomia: true,
+      autonomia: 10000,
+      cantidad:"0",
+      tipoMantenimiento: {
+        codigo: 1,
+        nombre: "Preventivo",
+        objetivo: "Prevenir fallas y mantener los vehiculos en condiciones óptimas de funcionamiento.",
+      },
+      tiposVehiculo:{
+         codigo: 1,
+        nombres: "Automóvil",
       }
     },
-    tipoMantenimiento:  {
-      icon: "avatar-title rounded-circle bg-warning-subtle text-warning",
-      codigo: 1,
-      objetivo:"Prevenir fallas y mantener los vehiculos en condiciones óptimas de funcionamiento.",
-      nombre: "Preventivo",
-      estado:"A",
-      items: [
-        {
-          id: 1,
-          nombre:"Cambio de aceite",
-          kmRevision: 10000
-        },
-        {
-          id: 2,
-          nombre:"Revision del Aceite del motor",
-          kmRevision: 10000
-        },
-        {
-          id: 3,
-          nombre:"Liquido de freno.",
-          kmRevision: 10000
-        },
-        {
-          id: 4,
-          nombre:"Liquido refrigerante.",
-          kmRevision: 10000
-        },
-        {
-          id: 5,
-          nombre:"Aceite de caja de cambio.",
-          kmRevision: 10000
-        },
-        {
-          id: 6,
-          nombre:"Filtro del carburador",
-          kmRevision: 10000
-        },
-      ]
-    },
-    tipoMantenimientoDetalle: {
-      id: 1,
-      nombre:"Cambio de filtro",
-      kmRevision: 10000
-    },
-    Autonomia:5000, // Cambio.
-    siguienteCambio: 0,
-    estado:"A"
-
-  },
   
+
+    KMActualMantenimiento:157000,
+    ProximoCambioKM:162000,
+    KmFaltante: 18000,
+    estado: "A"
+  },
+  {
+    codigo: 3,
+    fechaRegistro: "22-03-2024",
+    vehiculo: {
+      id: 1,
+      marca: "Chevrolet",
+      modelo: "Aveo",
+      placa: "GCA-3951",
+      kmActual: 180000,
+      tipoVehiculo: {
+        codigo: 1,
+        nombre: "Automóvil",
+        estado: "A",
+      },
+    },
+    
+    tipoMantenimientoDetalle:  {
+      id: 6,
+      nombre: "Filtro del carburador",
+      marca:"ACDELCO",
+      caracteristicas:"",
+      validarPor:"KM", //KM o DIAS
+      validarAutonomia: true,
+      autonomia: 10000,
+      cantidad:"0",
+      tipoMantenimiento: {
+        codigo: 1,
+        nombre: "Preventivo",
+        objetivo: "Prevenir fallas y mantener los vehiculos en condiciones óptimas de funcionamiento.",
+      },
+      tiposVehiculo:{
+         codigo: 1,
+        nombres: "Automóvil",
+      }
+    },
+  
+
+    KMActualMantenimiento:157000,
+    ProximoCambioKM:162000,
+    KmFaltante: 18000,
+    estado: "A"
+  },
 ]

@@ -118,8 +118,8 @@ export const DetallesTiposMantenimientos = [
     marca:"ACDELCO",
     caracteristicas:"",
     validarPor:"KM", //KM o DIAS
-    validarAutonomia: false,
-    autonomia: 0,
+    validarAutonomia: true,
+    autonomia: 10000,
     cantidad:"0",
     tipoMantenimiento: {
       codigo: 1,
@@ -246,6 +246,26 @@ export const DetallesTiposMantenimientos = [
       nombres: "Tricimoto",
     }
   },
+  {
+    id: 13,
+    nombre: "Cambio de banda de dirección",
+    marca:"Sin registro",
+    caracteristicas:"",
+    validarPor:"KM", //KM o DIAS
+    validarAutonomia: true,
+    autonomia: 40000,
+    cantidad:"0",
+    tipoMantenimiento: {
+      codigo: 1,
+      nombre: "Preventivo",
+      objetivo: "Prevenir fallas y mantener los vehiculos en condiciones óptimas de funcionamiento.",
+    },
+    tiposVehiculo:{
+       codigo: 1,
+      nombres: "Automóvil",
+    }
+  },
+  
 
 
 

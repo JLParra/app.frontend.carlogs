@@ -59,8 +59,8 @@ export class VehiculoComponent {
   ngOnInit(): void {
     this.vehiculosRegistrados = vehiculosRegistrados;
     this.vehiculosRegistradosList = vehiculosRegistrados;
-    this.registroMantenimientosList = registroMantenimientos;
     this.vehiculosRegistrados = cloneDeep(this.vehiculosRegistradosList.slice(0, 10));
+    this.registroMantenimientosList = registroMantenimientos;
     this.registroMantenimientos = cloneDeep(this.registroMantenimientosList.slice(0, 10));
     document.getElementById('elmLoader')?.classList.add('d-none')
 
@@ -209,9 +209,13 @@ export class VehiculoComponent {
 
   endItem: any;
   // pagechanged
-  pageChanged(event: PageChangedEvent): void {
+  pageChanged(event: PageChangedEvent, pag:number): void {
     const startItem = (event.page - 1) * event.itemsPerPage;
     this.endItem = event.page * event.itemsPerPage;
-    this.vehiculosRegistrados = this.vehiculosRegistradosList.slice(startItem, this.endItem);
+    if(pag==1) {
+      this.vehiculosRegistrados = this.vehiculosRegistradosList.slice(startItem, this.endItem);
+    }else if (pag==2) {
+      this.registroMantenimientos = this.registroMantenimientosList.slice(startItem, this.endItem);
+    }
   }
 }

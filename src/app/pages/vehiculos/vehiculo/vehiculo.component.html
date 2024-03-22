@@ -89,12 +89,12 @@
                                 </td>
                                 <td class="products">{{data.color}}</td>
                                 <td class="amount">
-                                    <span class="fw-medium">{{data.tipoVehiculo}}</span>
+                                    <span class="fw-medium">{{data.tipoVehiculo.nombres}}</span>
                                 </td>
 
                                 <td class="rating">
                                     <h5 class="fs-md fw-medium mb-0">
-                                        {{data.kmActual}}
+                                        {{data.kmActual| number}}
                                     </h5>
                                 </td>
                                 <td class="status">
@@ -150,7 +150,7 @@
                     <div class="col-sm-auto mt-3 mt-sm-0">
                         <pagination class="pagination-wrap hstack gap-2 justify-content-center"
                             [totalItems]="vehiculosRegistradosList?.length" [itemsPerPage]="10"
-                            (pageChanged)="pageChanged($event)"></pagination>
+                            (pageChanged)="pageChanged($event,1)"></pagination>
                     </div><!--end col-->
                 </div><!--end row-->
             </div>
@@ -314,8 +314,9 @@
                                 <th scope="col" (click)="onSort('rating')">Mantenimiento</th>
                                 <th scope="col" (click)="onSort('rating')">Descripción</th>
                                 <th scope="col" (click)="onSort('rating')">Autonomia</th>
-                                <th scope="col" (click)="onSort('rating')">KM Actual Mantenimiento</th>
-                                <th scope="col" (click)="onSort('rating')">Proximo KM Cambio (KM)</th>
+                                <th scope="col" (click)="onSort('rating')">KM Mantenimiento</th>
+                                <th scope="col" (click)="onSort('rating')">Proximo Cambio (KM)</th>
+                                <th scope="col" (click)="onSort('rating')">KM Faltante</th>
                                 <th scope="col" class="sort cursor-pointer" (click)="onSort('status')">Estado</th>
                                 <th scope="col" class="sort cursor-pointer" (click)="onSort('status')">Acciones</th>
                             </tr>
@@ -339,17 +340,23 @@
                                     {{data.vehiculo.placa}}
                                 </td>
                                 <td class="customer">
-                                    {{data.vehiculo.kmActual}}
+                                    {{data.vehiculo.kmActual | number}}
                                 </td>
-                                <td class="products">{{data.tipoMantenimiento.nombre}}</td>
+                                <td class="products">{{data.tipoMantenimientoDetalle.tipoMantenimiento.nombre}}</td>
                                 <td class="products">{{data.tipoMantenimientoDetalle.nombre}}</td>
-                                <td class="products">{{data.tipoMantenimientoDetalle.nombre}}</td>
+                                <td class="products">{{ data.tipoMantenimientoDetalle.validarAutonomia==true? (data.tipoMantenimientoDetalle.autonomia |number ):"-"}}</td>
+                                <td class="products">{{data.KMActualMantenimiento| number}}</td>
+                                <td class="products">{{ data.tipoMantenimientoDetalle.validarAutonomia==true?( data.ProximoCambioKM | number):"-"}}</td>
+                                <td class="products">
+                                    <span class="badge" [ngClass]="{
+                                        'bg-danger-subtle text-danger': data.KmFaltante < 0 ,
+                                        'bg-success-subtle text-success': data.KmFaltante > 0 }">
+                                        {{data.tipoMantenimientoDetalle.validarAutonomia==true? (data.KmFaltante | number) :"-"}}
+                                        </span>                                
+                                
+                                </td>
 
-                                <td class="rating">
-                                    <h5 class="fs-md fw-medium mb-0">
-                                        {{data.kmActual}}
-                                    </h5>
-                                </td>
+                               
                                 <td class="status">
                                     <span class="badge" [ngClass]="{
                                     'bg-danger-subtle text-danger': data.estado === 'I',
@@ -396,14 +403,14 @@
                 <div class="row align-items-center mt-4 pt-2" id="pagination-element">
                     <div class="col-sm">
                         <div class="text-muted text-center text-sm-start">
-                            Showing <span class="fw-semibold">{{vehiculosRegistrados?.length}}</span> of <span
-                                class="fw-semibold">{{vehiculosRegistradosList?.length}}</span> Results
+                            Showing <span class="fw-semibold">{{registroMantenimientos?.length}}</span> of <span
+                                class="fw-semibold">{{registroMantenimientosList?.length}}</span> Results
                         </div>
                     </div><!--end col-->
                     <div class="col-sm-auto mt-3 mt-sm-0">
                         <pagination class="pagination-wrap hstack gap-2 justify-content-center"
-                            [totalItems]="vehiculosRegistradosList?.length" [itemsPerPage]="10"
-                            (pageChanged)="pageChanged($event)"></pagination>
+                            [totalItems]="registroMantenimientosList?.length" [itemsPerPage]="10"
+                            (pageChanged)="pageChanged($event,2)"></pagination>
                     </div><!--end col-->
                 </div><!--end row-->
             </div>
@@ -466,8 +473,8 @@
                                                                     @if(det.validarAutonomia) {
                                                                     <div class="vr"></div>
                                                                     <div class="text-muted"><b
-                                                                            class="text-body fw-medium">Remplazar cada 2</b>
-                                                                        {{det.autonomia}} {{det.validarPor}}</div>
+                                                                            class="text-body fw-medium">Remplazar cada </b>
+                                                                        {{det.autonomia | number}} {{det.validarPor}}</div>
                                                                     }
                                                                     @if(det.cantidad != "0") {
                                                                     <div class="vr"></div>
