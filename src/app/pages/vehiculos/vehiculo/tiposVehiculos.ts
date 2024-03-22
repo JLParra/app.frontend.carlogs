@@ -2,7 +2,7 @@ export const tiposVehiculos = [
   {
     img: "https://source.unsplash.com/random/tricimoto",
     codigo: 1,
-    nombres: "Vehículo",
+    nombres: "Automóvil",
     estado:"A",
   },
   {

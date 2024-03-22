@@ -7,7 +7,7 @@ import { ChoferComponent } from './chofer/chofer.component';
 import { SimplebarAngularModule } from 'simplebar-angular';
 import { FormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 @NgModule({
   declarations: [VehiculoComponent,ChoferComponent],
@@ -17,6 +17,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     PaginationModule,
     VehiculosRoutingModule,
     SimplebarAngularModule,
+    AccordionModule,
     
   ]
 })

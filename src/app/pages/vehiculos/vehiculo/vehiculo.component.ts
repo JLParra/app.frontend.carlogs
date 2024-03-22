@@ -11,9 +11,18 @@ import { choferesList } from './choferesList';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { cloneDeep } from 'lodash';
 import { tiposVehiculos } from './tiposVehiculos';
-import { tiposMantenimientos } from './tiposMantenimientos';
+import { DetallesTiposMantenimientos, tiposMantenimientos } from './tiposMantenimientos';
+import { registroMantenimientos } from './registroMantenimientos';
 
-
+interface MantenimientoInfo {
+  tipoMantenimiento: string;
+  objetivo: string;
+  mantenimientos: DetalleMantenimiento[];
+}
+interface DetalleMantenimiento {
+  tipoVehiculo: string;
+  detalles: any[];
+}
 @Component({
   selector: 'app-vehiculo',
 
@@ -28,12 +37,17 @@ export class VehiculoComponent {
   salesList: any;
   vehiculosRegistradosList: any;
   vehiculosRegistrados: any;
+  registroMantenimientos: any;
+  registroMantenimientosList: any;
   choferesList: any;
   tiposVehiculosList: any;
   tiposMantenimientosList: any;
+  tiposMantenimientosDetalleList: any = [];
   tickets: any;
   alltickets: any;
-  totalChoferes:number=3000;
+  totalChoferes: number = 3000;
+  // Objeto para almacenar los tipos de vehículos y sus detalles
+  vehiculosAgrupados: { [key: string]: any[] } = {};
 
   @ViewChild('productModal', { static: false }) productModal?: ModalDirective;
   productdetail: any;
@@ -43,16 +57,23 @@ export class VehiculoComponent {
   constructor(public store: Store, private formBuilder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
-    this.vehiculosRegistrados= vehiculosRegistrados;
-    this.vehiculosRegistradosList= vehiculosRegistrados;
-    this.vehiculosRegistrados = cloneDeep(this.vehiculosRegistradosList.slice(0,10));
+    this.vehiculosRegistrados = vehiculosRegistrados;
+    this.vehiculosRegistradosList = vehiculosRegistrados;
+    this.registroMantenimientosList = registroMantenimientos;
+    this.vehiculosRegistrados = cloneDeep(this.vehiculosRegistradosList.slice(0, 10));
+    this.registroMantenimientos = cloneDeep(this.registroMantenimientosList.slice(0, 10));
     document.getElementById('elmLoader')?.classList.add('d-none')
 
     this.vehiculosWidgets = vehiculosWidgets;
-   this.choferesList = choferesList;
-   this.tiposVehiculosList = tiposVehiculos;
-   this.tiposMantenimientosList = tiposMantenimientos;
+    this.choferesList = choferesList;
+    this.tiposVehiculosList = tiposVehiculos;
+    this.tiposMantenimientosList = tiposMantenimientos;
+    // this.tiposMantenimientosDetalleList = DetallesTiposMantenimientos;
+    // Iterar sobre cada detalle y agruparlo por tipo de vehículo
 
+
+    // console.log(this.tiposMantenimientosDetalleList);
+    this.agruparMantenimiento();
     this.listForm = this.formBuilder.group({
       id: [''],
       img: [''],
@@ -66,6 +87,41 @@ export class VehiculoComponent {
       status: ['', [Validators.required]]
     });
   }
+
+  private agruparMantenimiento() {
+    this.tiposMantenimientosDetalleList = DetallesTiposMantenimientos.reduce((acc: MantenimientoInfo[], curr) => {
+      const existingIndex = acc.findIndex(item => item.tipoMantenimiento === curr.tipoMantenimiento.nombre);
+
+      if (existingIndex !== -1) {
+        const tipoVehiculoIndex = acc[existingIndex].mantenimientos.findIndex(vehiculo => vehiculo.tipoVehiculo === curr.tiposVehiculo.nombres);
+
+        if (tipoVehiculoIndex !== -1) {
+          acc[existingIndex].mantenimientos[tipoVehiculoIndex].detalles.push(curr);
+        } else {
+          acc[existingIndex].mantenimientos.push({
+            tipoVehiculo: curr.tiposVehiculo.nombres,
+            detalles: [curr]
+          });
+        }
+      } else {
+        acc.push({
+          tipoMantenimiento: curr.tipoMantenimiento.nombre,
+          objetivo: curr.tipoMantenimiento.objetivo,
+          mantenimientos: [{
+            tipoVehiculo: curr.tiposVehiculo.nombres,
+            detalles: [curr]
+          }]
+        });
+      }
+
+
+      return acc;
+    }, []);
+
+    console.log(this.tiposMantenimientosDetalleList);
+  }
+
+
   uploadedFiles: any[] = [];
   courses: any;
   @ViewChild('addCourse', { static: false }) addCourse?: ModalDirective;
@@ -150,12 +206,12 @@ export class VehiculoComponent {
   compare(v1: string | number, v2: string | number) {
     return v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
   }
-  
+
   endItem: any;
-    // pagechanged
-    pageChanged(event: PageChangedEvent): void {
-      const startItem = (event.page - 1) * event.itemsPerPage;
-      this.endItem = event.page * event.itemsPerPage;
-      this.vehiculosRegistrados = this.vehiculosRegistradosList.slice(startItem, this.endItem);
-    }
+  // pagechanged
+  pageChanged(event: PageChangedEvent): void {
+    const startItem = (event.page - 1) * event.itemsPerPage;
+    this.endItem = event.page * event.itemsPerPage;
+    this.vehiculosRegistrados = this.vehiculosRegistradosList.slice(startItem, this.endItem);
+  }
 }

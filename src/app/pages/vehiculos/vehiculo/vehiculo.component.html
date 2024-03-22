@@ -273,7 +273,7 @@
 </div><!--end row-->
 <!-- Seccion de Mantenimientos -->
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
         <div class="card" id="regMantList">
 
             <div class="card-body">
@@ -305,40 +305,45 @@
                     <table class="table table-centered align-middle table-custom-effect table-nowrap mb-0">
                         <thead class="text-muted table-light">
                             <tr>
-                                <th scope="col" class="sort cursor-pointer" (click)="onSort('date')">Marca</th>
-                                <th scope="col" class="sort cursor-pointer" (click)="onSort('orderId')">Modelo</th>
-                                <th scope="col" class="sort cursor-pointer" (click)="onSort('shop')">Año</th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('date')">Fecha</th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('product')">Tipo</th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('orderId')">Vehiculo</th>
                                 <th scope="col" class="sort cursor-pointer" (click)="onSort('customer')">Nº Placa</th>
-                                <th scope="col" class="sort cursor-pointer" (click)="onSort('product')">Color</th>
-                                <th scope="col" class="sort cursor-pointer" (click)="onSort('amount')">Tipo de vehículo
-                                </th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('shop')">KM Actual</th>
                                 <!-- Tipo de vehículo (automóvil, motocicleta, camión, etc.). -->
-                                <th scope="col" class="sort cursor-pointer" (click)="onSort('rating')">KM Actual</th>
+                                <th scope="col" (click)="onSort('rating')">Mantenimiento</th>
+                                <th scope="col" (click)="onSort('rating')">Descripción</th>
+                                <th scope="col" (click)="onSort('rating')">Autonomia</th>
+                                <th scope="col" (click)="onSort('rating')">KM Actual Mantenimiento</th>
+                                <th scope="col" (click)="onSort('rating')">Proximo KM Cambio (KM)</th>
                                 <th scope="col" class="sort cursor-pointer" (click)="onSort('status')">Estado</th>
                                 <th scope="col" class="sort cursor-pointer" (click)="onSort('status')">Acciones</th>
                             </tr>
                         </thead>
                         <tbody class="list">
-                            @for (data of vehiculosRegistrados; track $index) {
+                            @for (data of registroMantenimientos; track $index) {
                             <tr>
                                 <td class="order_date">
-                                    {{data.marca}}
+                                    {{data.fechaRegistro}}
+                                </td>
+                                <td class="amount">
+                                    <span class="fw-medium">{{data.vehiculo.tipoVehiculo.nombre}}</span>
                                 </td>
                                 <td class="order_id">
                                     <a routerLink="/ecommerce/order-overview"
-                                        class="fw-medium link-primary">{{data.modelo}}</a>
+                                        class="fw-medium link-primary">{{data.vehiculo.marca}} {{data.vehiculo.modelo}}
+                                    </a>
                                 </td>
                                 <td class="shop">
                                     <!-- <img src="{{data.shop}}" alt="" class="avatar-xxs rounded-circle"> -->
-                                    {{data.anio}}
+                                    {{data.vehiculo.placa}}
                                 </td>
                                 <td class="customer">
-                                    {{data.placa}}
+                                    {{data.vehiculo.kmActual}}
                                 </td>
-                                <td class="products">{{data.color}}</td>
-                                <td class="amount">
-                                    <span class="fw-medium">{{data.tipoVehiculo}}</span>
-                                </td>
+                                <td class="products">{{data.tipoMantenimiento.nombre}}</td>
+                                <td class="products">{{data.tipoMantenimientoDetalle.nombre}}</td>
+                                <td class="products">{{data.tipoMantenimientoDetalle.nombre}}</td>
 
                                 <td class="rating">
                                     <h5 class="fs-md fw-medium mb-0">
@@ -405,7 +410,11 @@
 
         </div>
     </div><!--end col-->
-    <div class="col-lg-4">
+
+
+</div><!--end row-->
+<div class="row">
+    <div class="col-lg-12">
 
         <div class="card card-height-100">
             <div class="card-header d-flex">
@@ -418,7 +427,7 @@
             <div class="card-body px-0">
                 <ngx-simplebar class="px-3" style="max-height: 600px;">
                     <div class="acitivity-timeline acitivity-main">
-                        @for (data of tiposMantenimientosList; track $index) {
+                        @for (data of tiposMantenimientosDetalleList ; track $index) {
                         <div class="acitivity-item d-flex">
                             <div class="avatar-xs acitivity-avatar">
                                 <div class="avatar-title rounded-circle bg-warning-subtle text-warning">
@@ -426,16 +435,71 @@
                                 </div>
                             </div>
                             <div class="flex-grow-1 ms-3">
-                                <h6 class="mb-1 lh-base">{{data.nombre}}</h6>
-                                <small class="mb-1 lh-base mb-2">{{data.objetivo}}</small><br>
-                                @for (item of data.items; track $index) {
-                                    <div class="vstack gap-2">
-                                        <div class="border py-2 px-3 w-100 rounded d-flex align-items-center mb-1">
-                                            <h6 class="text-muted ">{{item.nombre}} | revisar cada : {{item.kmRevision}} </h6>
-                                        </div>
-                                    </div>
-                               
+                                <h6 class="mb-1 lh-base">{{data.tipoMantenimiento}}</h6>
+                                <small class="mb-1 lh-base mb-2">{{data.objetivo}}</small>
+                                @for (item of data.mantenimientos ; track $index) {
+                                <accordion class="accordion accordion-flush filter-panel mb-2" id="accordionExample">
+                                    <accordion-group [isOpen]="true" class="accordion-item">
 
+                                        <h2 accordion-heading class="accordion-header" id="categoryAccordion">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseCategory" aria-expanded="true"
+                                                aria-controls="collapseCategory">
+                                                {{item.tipoVehiculo}}
+                                            </button>
+                                        </h2>
+                                        <div id="collapseCategory" class="accordion-collapse collapse show"
+                                            aria-labelledby="categoryAccordion" data-bs-parent="#categoryFilters">
+                                            <div class="accordion-body">
+                                                <ul class="list-unstyled mb-0 filter-list">
+                                                    @for (det of item.detalles ; track $index) {
+                                                    <li>
+                                                        <a href="javascript:void(0);"
+                                                            class="d-flex py-1 align-items-center">
+                                                            <div class="flex-grow-1">
+                                                                <h5 class="fs-sm mb-0 listname">{{det.nombre}}</h5>
+                                                                <div class="hstack gap-3 flex-wrap mb-4 p-2">
+                                                                    <div class="text-muted"><b
+                                                                            class="text-body fw-medium">Marca </b>
+                                                                        {{det.marca}}</div>
+
+                                                                    @if(det.validarAutonomia) {
+                                                                    <div class="vr"></div>
+                                                                    <div class="text-muted"><b
+                                                                            class="text-body fw-medium">Remplazar cada 2</b>
+                                                                        {{det.autonomia}} {{det.validarPor}}</div>
+                                                                    }
+                                                                    @if(det.cantidad != "0") {
+                                                                    <div class="vr"></div>
+                                                                    <div class="text-muted"><b
+                                                                            class="text-body fw-medium">Cantidad</b>
+                                                                        {{det.cantidad}} </div>
+                                                                    }
+                                                                    <!-- <div class="vr"></div>
+                                                                            <div class="text-muted"><b class="text-body fw-medium">100k</b>
+                                                                                Reviews</div>
+                                                                            <div class="vr"></div>
+                                                                            <div class="text-muted">Published : <span class="text-body fw-medium">1000</span></div> -->
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    }
+
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </accordion-group>
+
+
+                                </accordion>
+                                <br>
+                                <!-- <div class="vstack gap-2">
+                                        <div class="border py-2 px-3 w-100 rounded d-flex align-items-center mb-1">
+                                            <h6 class="text-muted ">{{item}}</h6>
+                                        </div>
+                                    </div> -->
                                 }
 
                             </div>
@@ -446,6 +510,5 @@
                 </ngx-simplebar>
             </div>
         </div>
-    </div><!--end col-->
-
-</div><!--end row-->
+    </div>
+</div>
