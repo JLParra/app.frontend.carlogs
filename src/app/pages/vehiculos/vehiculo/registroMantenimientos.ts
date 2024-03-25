@@ -83,7 +83,7 @@ export const registroMantenimientos = [
   },
   {
     codigo: 3,
-    fechaRegistro: "22-03-2024",
+    fechaRegistro: "22-03ç-2024",
     vehiculo: {
       id: 1,
       marca: "Chevrolet",
