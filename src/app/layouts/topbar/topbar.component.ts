@@ -160,9 +160,9 @@ export class TopbarComponent {
       document.documentElement.classList.add('mode-auto')
     } else {
       this.store.dispatch(changeMode({ mode }));
-    this.store.select(getLayoutmode).subscribe((mode) => {
-      document.documentElement.setAttribute('data-bs-theme', mode);
-    })
+      this.store.select(getLayoutmode).subscribe((mode) => {
+        document.documentElement.setAttribute('data-bs-theme', mode);
+      })
       document.documentElement.classList.remove('mode-auto')
       document.documentElement.setAttribute('data-topbar', mode);
     }

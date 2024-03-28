@@ -1,7 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-export const changelayoutTheme = createAction('[Layout] Set Layout', props<{ layout: string }>());
-export const changeTheme = createAction('[Layout] Set theme', props<{ theme: string }>());
+
 export const changeMode = createAction('[Layout] Set Mode', props<{ mode: string }>());
 export const changewidthLayout = createAction('[Layout] Set width', props<{ width: string }>());
 export const changeposition = createAction('[Layout] Set position', props<{ position: string }>());

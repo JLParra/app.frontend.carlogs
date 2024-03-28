@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { LAYOUT_MODE_TYPES, LAYOUT_WIDTH_TYPES, LAYOUT_POSITION_TYPES, LAYOUT_TOPBAR_COLOR_TYPES, PERLOADER_TYPES, LAYOUT_TYPES, LEFT_SIDEBAR_SIZE, LAYOUT_THEME_TYPES, DATA_SIDEBAR_IMAGE, DATA_SIDEBAR_COLOR, LEFT_SIDEBAR_VIEW } from './layout';
-import { changeMode, changeTheme, changelayoutTheme, changeposition, changepreLoader, changesidebarImage, changesidebarView, changesidebarcolor, changesize, changetopbar, changewidthLayout } from './layout-action';
+import { changeMode,changeposition, changepreLoader, changesidebarImage, changesidebarView, changesidebarcolor, changesize, changetopbar, changewidthLayout } from './layout-action';
 
 export interface LayoutState {
     LAYOUT: string;
@@ -34,8 +34,7 @@ export const initialState: LayoutState = {
 // Reducer
 export const layoutReducer = createReducer(
     initialState,
-    on(changelayoutTheme, (state, action) => ({ ...state, LAYOUT: action.layout })),
-    on(changeTheme, (state, action) => ({ ...state, LAYOUT_THEME: action.theme })),
+    
     on(changeMode, (state, action) => ({ ...state, LAYOUT_MODE: action.mode })),
     on(changewidthLayout, (state, action) => ({ ...state, LAYOUT_WIDTH: action.width })),
     on(changeposition, (state, action) => ({ ...state, LAYOUT_POSITION: action.position })),
