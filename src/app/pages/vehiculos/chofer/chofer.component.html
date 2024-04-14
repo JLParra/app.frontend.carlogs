@@ -1,1 +1,171 @@
-<p>chofer works!</p>
+
+<!-- Seccion de Mantenimientos -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" id="regMantList">
+
+            <div class="card-body">
+                <div class="row align-items-center g-2">
+                    <div class="col-lg-4 me-auto">
+                        <h6 class="card-title mb-0">Choferes registrados <span
+                                class="badge bg-primary ms-1 align-baseline">1452</span></h6>
+                    </div><!--end col-->
+                    <div class="col-lg-4">
+                        <div class="search-box">
+                            <input type="text" class="form-control search"
+                                placeholder="Search for courses, price or something..." 
+                                >
+                            <i class="ri-search-line search-icon"></i>
+                        </div>
+                    </div><!--end col-->
+                    <div class="col-lg-auto">
+                        <div class="hstack flex-wrap gap-2">
+                            <!-- <button class="btn btn-subtle-danger d-none" id="remove-actions" (click)="deleteRecordModal.show()"><i class="ri-delete-bin-2-line"></i></button> -->
+                            <a href="javascript:void(0);" class="btn btn-secondary"><i
+                                    class="bi bi-plus-circle align-baseline me-1"></i> Agregar</a>
+
+                        </div>
+                    </div><!--end col-->
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive table-card">
+                    <table class="table table-centered align-middle table-custom-effect table-nowrap mb-0">
+                        <thead class="text-muted table-light">
+                            <tr>
+                                <th scope="col" class="sort cursor-pointer" >Cédula</th>
+                                <th scope="col" class="sort cursor-pointer" >Nombres</th>
+                                <th scope="col" class="sort cursor-pointer" >Nacionalidad</th>
+                                <th scope="col" class="sort cursor-pointer" >Convencional</th>
+                                <th scope="col" class="sort cursor-pointer" ># Celular</th>
+                                <!-- Tipo de vehículo (automóvil, motocicleta, camión, etc.). -->
+                                <th scope="col" ># Whatsapp</th>
+                                <th scope="col" ># Emergencia</th>
+                                <th scope="col" >Parentezco</th>
+                                <th scope="col" >F. Ingreso</th>
+                                <th scope="col" >KM Faltante</th>
+                                <th scope="col" class="sort cursor-pointer" >Estado</th>
+                                <th scope="col" class="sort cursor-pointer" >Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            @for (data of choferesList; track $index) {
+                            <tr>
+                                <td class="order_date">
+                                    {{data.cedula}}
+                                </td>
+                                <td class="amount">
+                                    <span class="fw-medium">{{data.nombres}}</span>
+                                </td>
+                                <!-- <td class="order_id">
+                                    <a routerLink="/ecommerce/order-overview"
+                                        class="fw-medium link-primary">{{data.vehiculo.marca}} {{data.vehiculo.modelo}}
+                                    </a>
+                                </td> -->
+                                <td class="shop">
+                                    <!-- <img src="{{data.shop}}" alt="" class="avatar-xxs rounded-circle"> -->
+                                    {{data.nacionalidad}}
+                                </td>
+                                <td class="shop">
+                                    <!-- <img src="{{data.shop}}" alt="" class="avatar-xxs rounded-circle"> -->
+                                    {{data.convencional}}
+                                </td>
+                                <td class="shop">
+                                    <!-- <img src="{{data.shop}}" alt="" class="avatar-xxs rounded-circle"> -->
+                                    {{data.celular}}
+                                </td>
+                                <td class="shop">
+                                    <!-- <img src="{{data.shop}}" alt="" class="avatar-xxs rounded-circle"> -->
+                                    {{data.whatsapp}}
+                                </td>
+                                <td class="shop">
+                                    <!-- <img src="{{data.shop}}" alt="" class="avatar-xxs rounded-circle"> -->
+                                    {{data.emergencia}}
+                                </td>
+                                <td class="shop">
+                                    <!-- <img src="{{data.shop}}" alt="" class="avatar-xxs rounded-circle"> -->
+                                    {{data.parentezco}}
+                                </td>
+                                <td class="shop">
+                                    <!-- <img src="{{data.shop}}" alt="" class="avatar-xxs rounded-circle"> -->
+                                    {{data.fechaIngresoLaboral}}
+                                </td>
+                                <td class="shop">
+                                    <!-- <img src="{{data.shop}}" alt="" class="avatar-xxs rounded-circle"> -->
+                                    {{data.fechaRegistro}}
+                                </td>
+                                <td class="shop">
+                                    <!-- <img src="{{data.shop}}" alt="" class="avatar-xxs rounded-circle"> -->
+                                    {{data.estado.nombre}}
+                                </td>
+                                <td class="shop">
+                                    <!-- <img src="{{data.shop}}" alt="" class="avatar-xxs rounded-circle"> -->
+                                    {{data.estado.nombre}}
+                                </td>
+                                <td class="customer">
+                                    {{data.vehiculo.nombre }}
+                                </td>
+                                
+                               
+                                <td class="status">
+                                    <span class="badge" [ngClass]="{
+                                    'bg-danger-subtle text-danger': data.estado.nombre === 'Inactivo',
+                                    'bg-success-subtle text-success': data.estado.nombre === 'Activo'}">{{data.estado.nombre}}</span>
+                                </td>
+                                <td>
+                                    <ul class="d-flex gap-2 list-unstyled mb-0">
+                                        <li>
+                                            <a routerLink="/tickets/overview"
+                                                class="btn btn-subtle-primary btn-icon btn-sm "><i
+                                                    class="ph-eye"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" 
+                                                class="btn btn-subtle-secondary btn-icon btn-sm edit-item-btn"><i
+                                                    class="ph-pencil"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);"
+                                                class="btn btn-subtle-danger btn-icon btn-sm remove-item-btn"><i
+                                                    class="ph-trash"></i></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr><!-- end tr -->
+                            }
+                        </tbody><!-- end tbody -->
+                    </table><!-- end table -->
+                    <div class="noresult" style="display: none">
+                        <div class="text-center">
+                            <!-- <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#405189,secondary:#0ab39c" style="width:75px;height:75px"></lord-icon> -->
+                            <h5 class="mt-2">Sorry! No Result Found</h5>
+                            <p class="text-muted mb-0">We've searched more than 150+ transactions We did not find any
+                                transactions for you search.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="elmLoader">
+                    <div class="spinner-border text-primary avatar-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="row align-items-center mt-4 pt-2" id="pagination-element">
+                    <div class="col-sm">
+                        <!-- <div class="text-muted text-center text-sm-start">
+                            Showing <span class="fw-semibold">{{registroMantenimientos?.length}}</span> of <span
+                                class="fw-semibold">{{registroMantenimientosList?.length}}</span> Results
+                        </div> -->
+                    </div><!--end col-->
+                    <div class="col-sm-auto mt-3 mt-sm-0">
+                        <!-- <pagination class="pagination-wrap hstack gap-2 justify-content-center"
+                            [totalItems]="registroMantenimientosList?.length" [itemsPerPage]="10"
+                            (pageChanged)="pageChanged($event,2)"></pagination> -->
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div>
+
+        </div>
+    </div><!--end col-->
+
+
+</div><!--end row-->

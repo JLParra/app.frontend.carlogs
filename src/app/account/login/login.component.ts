@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthenticationService } from 'src/app/core/services/auth.service';
-import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
-import { login } from 'src/app/store/Authentication/authentication.actions';
+
+import { UsuarioService } from '../auth/services/usuario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -30,9 +30,22 @@ export class LoginComponent {
 
   // tslint:disable-next-line: max-line-length
   constructor(private formBuilder: UntypedFormBuilder,
+    private usuarioService: UsuarioService,
     private router: Router,
     private store: Store,
 ) { }
+
+// constructor(private router: Router, private fb: FormBuilder,
+//   ) {
+//   this.loginForm = this.fb.group({
+
+//     email: [localStorage.getItem('email')|| '', Validators.required],
+//     password: ['', Validators.required],
+//     remember: [false],
+  
+//   });
+
+
 
   ngOnInit(): void {
     if (localStorage.getItem('currentUser')) {
@@ -42,7 +55,7 @@ export class LoginComponent {
      * Form Validatyion
      */
     this.loginForm = this.formBuilder.group({
-      email: ['admin@themesbrand.com', [Validators.required, Validators.email]],
+      email: ['jloorparra@gmail.com', [Validators.required, Validators.email]],
       password: ['123456', [Validators.required]],
     });
   }
@@ -59,10 +72,32 @@ export class LoginComponent {
     const email = this.f['email'].value; // Get the username from the form
     const password = this.f['password'].value; // Get the password from the form
 
-    // Login Api
-    this.store.dispatch(login({ email: email, password: password }));
+    this.usuarioService.login(this.loginForm.value).subscribe({
+			next: (resp) => {
+				if(this.loginForm.get('remember')?.value) {
+					localStorage.setItem('email',this.loginForm.get('email')?.value)
+				}else {
+					localStorage.removeItem('email');
+				}
+				this.router.navigateByUrl('/');
+			},
+			error: (err) => {
+				Swal.fire('Error', err.error.msg, 'error');
+        
+			},
+		});
   }
 
+  
+
+	campoNoValido(campo: string) {
+		if (this.loginForm.get(campo)?.invalid && this.submitted) {
+			return true
+		} else {
+			return false
+		}
+	}
+  
   /**
    * Password Hide/Show
    */
